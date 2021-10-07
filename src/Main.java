@@ -44,11 +44,15 @@ public class Main {
                 break;
         }
 
+        if (board[0][column] != 0){
+            System.out.println("Column full");
+        }else {
             while (board[row][column] != 0) {
                 row--;
             }
-            board[row][column] = player;
 
+            board[row][column] = player;
+        }
     }
 
     public static boolean connect4(int[][]board, int player){
