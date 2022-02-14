@@ -1,3 +1,5 @@
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -66,14 +68,25 @@ public class Tester {
 
     @Test //Test a regular move
     public void NormalMove_test() {
+
+        int[][] board1 = { {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0},};
+
         Main tester = new Main();
-        assertEquals("", tester.placeToken("D",2,
-                new int[][]{{0, 1, 0, 0, 0, 0, 0},
-                            {0, 2, 0, 0, 0, 0, 0},
-                            {0, 1, 0, 0, 0, 1, 0},
-                            {0, 1, 0, 0, 2, 1, 0},
-                            {0, 1, 0, 1, 1, 2, 0},
-                            {0, 2, 1, 2, 2, 1, 0}}));
+        assertEquals("", tester.placeToken("D", 2, board1));
+
+        //Verify that it actually placed the token
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                System.out.print(board1[i][j] + "\t");
+            }
+            System.out.println();
+        }
+        System.out.println("A   B   C   D   E   F   G");
     }
 
     @Test //Test invalid input
