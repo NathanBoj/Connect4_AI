@@ -174,6 +174,7 @@ public class Main {
             //Vertical Win/def
             for (int row = 0; row < 6 - 3; row++) {
                 for (int col = 0; col < 7; col++) {
+                    //last hole
                     if (board[row][col] == atkdef &&
                             board[row + 1][col] == atkdef &&
                             board[row + 2][col] == atkdef) {
@@ -182,12 +183,39 @@ public class Main {
                             return;
                         }
                     }
+                    try {
+                        //first hole
+                        if (board[row][col] == 0 &&
+                                board[row + 1][col] == atkdef &&
+                                board[row + 2][col] == atkdef &&
+                                board[row + 3][col] == atkdef) {
+                            board[row][col] = 2;
+                            return;
+                        }
+                        //second hole
+                        else if (board[row][col] == atkdef &&
+                                board[row + 1][col] == 0 &&
+                                board[row + 2][col] == atkdef &&
+                                board[row + 3][col] == atkdef) {
+                            board[row + 1][col] = 2;
+                            return;
+                        }
+                        //third hole
+                        else if (board[row][col] == atkdef &&
+                                board[row + 1][col] == atkdef &&
+                                board[row + 2][col] == 0 &&
+                                board[row + 3][col] == atkdef) {
+                            board[row + 2][col] = 2;
+                            return;
+                        }
+                    } catch (Exception ignored) {}
                 }
             }
 
             //Diagonal Win/def
             for (int row = 3; row < 6; row++) {
                 for (int col = 0; col < 7 - 3; col++) {
+                    //last hole
                     if (board[row][col] == atkdef &&
                             board[row - 1][col + 1] == atkdef &&
                             board[row - 2][col + 2] == atkdef) {
@@ -196,10 +224,38 @@ public class Main {
                             return;
                         }
                     }
+                    try{
+                        //first hole
+                        if (board[row][col] == 0 &&
+                                board[row - 1][col + 1] == atkdef &&
+                                board[row - 2][col + 2] == atkdef &&
+                                board[row - 3][col + 3] == atkdef) {
+                            board[row][col] = 2;
+                            return;
+                        }
+                        //second hole
+                        else if (board[row][col] == atkdef &&
+                                board[row - 1][col + 1] == 0 &&
+                                board[row - 2][col + 2] == atkdef &&
+                                board[row - 3][col + 3] == atkdef) {
+                            board[row - 1][col + 1] = 2;
+                            return;
+                        }
+                        //third hole
+                        else if (board[row][col] == atkdef &&
+                                board[row - 1][col + 1] == atkdef &&
+                                board[row - 2][col + 2] == 0 &&
+                                board[row - 3][col + 3] == atkdef) {
+                            board[row - 2][col + 2] = 2;
+                            return;
+                        }
+                    } catch (Exception ignored) {}
+
                 }
             }
             for (int row = 0; row < 6 - 3; row++) {
                 for (int col = 0; col < 7 - 3; col++) {
+                    //last hole
                     if (board[row][col] == atkdef &&
                             board[row + 1][col + 1] == atkdef &&
                             board[row + 2][col + 2] == atkdef) {
@@ -208,6 +264,32 @@ public class Main {
                             return;
                         }
                     }
+                    try{
+                        //first hole
+                        if (board[row][col] == 0 &&
+                                board[row + 1][col + 1] == atkdef &&
+                                board[row + 2][col + 2] == atkdef &&
+                                board[row + 3][col + 3] == atkdef) {
+                            board[row][col] = 2;
+                            return;
+                        }
+                        //second hole
+                        else if (board[row][col] == atkdef &&
+                                board[row + 1][col + 1] == 0 &&
+                                board[row + 2][col + 2] == atkdef &&
+                                board[row + 3][col + 3] == atkdef) {
+                            board[row + 1][col + 1] = 2;
+                            return;
+                        }
+                        //third hole
+                        else if (board[row][col] == atkdef &&
+                                board[row + 1][col + 1] == atkdef &&
+                                board[row + 2][col + 2] == 0 &&
+                                board[row + 3][col + 3] == atkdef) {
+                            board[row + 2][col + 2] = 2;
+                            return;
+                        }
+                    } catch (Exception ignored) {}
                 }
             }
         }
