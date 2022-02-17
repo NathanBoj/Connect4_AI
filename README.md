@@ -1,2 +1,2 @@
 # Connect4_AI
-  A Connect Four game where the computer learns your playstyle.
+  A Connect Four game with local and PC play.
