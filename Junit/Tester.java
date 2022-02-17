@@ -8,51 +8,9 @@ public class Tester {
 
     Main tester = new Main();
 
-    @Test //Horizontal Win
-    public void H_testWin() {
-        assertTrue("Horizontal Win",tester.connect4(
-                new int[][]{{0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 1, 1, 1, 1},}, 1));
-    }
+    //NOTE: array index is off by 1
 
-    @Test //Vertical Win, works with >4 tokens
-    public void V_testWin() {
-        assertTrue("Vertical Win", tester.connect4(
-                new int[][]{{0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 2, 0, 0, 0, 0},
-                            {0, 0, 2, 0, 0, 0, 0},
-                            {0, 0, 2, 0, 0, 0, 0},
-                            {0, 0, 2, 0, 0, 0, 0},
-                            {0, 0, 2, 0, 0, 0, 0},}, 2));
-    }
-
-    @Test //Diagonal Win
-    public void D_testWin() {
-        assertTrue("Diagonal Win", tester.connect4(
-                new int[][]{{0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 1, 0},
-                            {0, 0, 0, 0, 1, 0, 0},
-                            {0, 0, 0, 1, 0, 0, 0},
-                            {0, 0, 1, 0, 0, 0, 0},}, 1));
-    }
-
-    @Test //False Win
-    public void test_NoWin() {
-        assertFalse("False Win", tester.connect4(
-                new int[][]{{0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 0, 0, 0, 0, 0},
-                            {0, 0, 1, 1, 2, 1, 0},}, 1));
-    }
-
-    @Test //Test valid input
+    @Test //Test valid input --------------------------------------------->
     public void test_input() {
         assertEquals(2, tester.clean_input("C"));
     }
@@ -62,7 +20,7 @@ public class Tester {
         assertEquals(999, tester.clean_input("K"));
     }
 
-    @Test //Test to place a token at an already full column
+    @Test //Test to place a token at an already full column -------------------------------------->
     public void FullColumn_test() {
         assertEquals("Column full!", tester.placeToken(1,1,
                 new int[][]{{0, 1, 0, 0, 0, 0, 0},
@@ -83,8 +41,8 @@ public class Tester {
                 {0,0,0,0,0,0,0},
                 {0,0,0,0,0,0,0},};
 
-        Main tester = new Main();
-        assertEquals("", tester.placeToken(3, 2, board1));
+        Main tester2 = new Main();
+        assertEquals("", tester2.placeToken(3, 2, board1));
 
         //Verify that it actually placed the token
         for (int i = 0; i < 6; i++) {
@@ -107,7 +65,49 @@ public class Tester {
                             {0, 2, 1, 2, 2, 1, 0}}));
     }
 
-    //(array index is off by 1)
+    @Test //Horizontal Win -------------------------------------------->
+    public void H_testWin() {
+        assertTrue("Horizontal Win",tester.connect4(
+                new int[][]{{0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 1, 1, 1, 1},}, 1));
+    }
+
+    @Test //Vertical Win, works with >4 tokens
+    public void V_testWin() {
+        assertTrue("Vertical Win", tester.connect4(
+                new int[][]{{0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 2, 0, 0, 0, 0},
+                        {0, 0, 2, 0, 0, 0, 0},
+                        {0, 0, 2, 0, 0, 0, 0},
+                        {0, 0, 2, 0, 0, 0, 0},
+                        {0, 0, 2, 0, 0, 0, 0},}, 2));
+    }
+
+    @Test //Diagonal Win
+    public void D_testWin() {
+        assertTrue("Diagonal Win", tester.connect4(
+                new int[][]{{0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 1, 0},
+                        {0, 0, 0, 0, 1, 0, 0},
+                        {0, 0, 0, 1, 0, 0, 0},
+                        {0, 0, 1, 0, 0, 0, 0},}, 1));
+    }
+
+    @Test //False Win
+    public void test_NoWin() {
+        assertFalse("False Win", tester.connect4(
+                new int[][]{{0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 1, 1, 2, 1, 0},}, 1));
+    }
 
     @Test //Test the computer algorithm's normal moves
     public void algorithm_test1() {
@@ -120,7 +120,7 @@ public class Tester {
         //Here every three turns the pc places the token above the players last move, otherwise place in columns incrementally
     }
 
-    @Test //Test the computer algorithm
+    @Test //Test the computer algorithm defend
     public void algorithm_test2() {
         assertEquals(2, tester.PC_bot( new int[][]{{0, 1, 0, 0, 0, 0, 0},
                                                             {0, 2, 0, 0, 0, 0, 0},
@@ -129,5 +129,16 @@ public class Tester {
                                                             {0, 1, 0, 1, 1, 2, 0},
                                                             {0, 2, 1, 2, 2, 1, 0}}, 13,3));
         //Here player 1 is close to winning at row 2 column 3, but the algorithm detects this and instead places its token there
+    }
+
+    @Test //Test the computer algorithm attack
+    public void algorithm_test3() {
+        assertEquals(0, tester.PC_bot( new int[][]{{0, 0, 0, 0, 0, 0, 0},
+                                                            {0, 0, 0, 0, 0, 0, 0},
+                                                            {0, 0, 0, 0, 0, 0, 0},
+                                                            {2, 2, 0, 0, 0, 0, 0},
+                                                            {1, 1, 2, 2, 1, 1, 0},
+                                                            {2, 2, 1, 2, 1, 1, 1}}, 10,5));
+        //Here the PC is close to winning at row 4 column 1, and places its token there
     }
 }
