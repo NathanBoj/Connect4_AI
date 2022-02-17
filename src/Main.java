@@ -298,9 +298,12 @@ public class Main {
                         {0, 0, 0, 0, 0, 0, 0},};
 
         Scanner scan = new Scanner(System.in);
+        String input = "";
 
-        System.out.println("Two-player or verse computer? (2P/PC): ");
-        String input = scan.nextLine();
+        while(!(input.equals("2P") || input.equals("PC"))){
+            System.out.println("Two-player or verse computer? (2P/PC): ");
+            input = scan.nextLine();
+        }
 
         showBoard(board);
 
