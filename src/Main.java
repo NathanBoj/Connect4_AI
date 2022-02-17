@@ -4,8 +4,8 @@ import javax.swing.*;
 
 public class Main {
 
-    public static void showBoard(int[][] board){
-
+    //Displays the current board.
+    public static void showBoard(int[][] board){ //argument is the current board
         for (int i = 0;i < 6;i++) {
             for (int j = 0; j < 7;j++){
                 System.out.print(board[i][j] + "\t");
@@ -15,56 +15,55 @@ public class Main {
         System.out.println("A   B   C   D   E   F   G");
     }
 
-    public static String placeToken(String move,int player,int[][] board) {
-
-        int row = 5;
-        int column = 0;
-        String message = "";
-
+    //Converts user input into columns of the array
+    public static int clean_input(String move){ //argument is user input
         switch (move) {
             case "A":
             case "a":
             case "1":
-                column = 0;
-                break;
+                return 0;
             case "B":
             case "b":
             case "2":
-                column = 1;
-                break;
+                return 1;
             case "C":
             case "c":
             case "3":
-                column = 2;
-                break;
+                return 2;
             case "D":
             case "d":
             case "4":
-                column = 3;
-                break;
+                return 3;
             case "E":
             case "e":
             case "5":
-                column = 4;
-                break;
+                return 4;
             case "F":
             case "f":
             case "6":
-                column = 5;
-                break;
+                return 5;
             case "G":
             case "g":
             case "7":
-                column = 6;
-                break;
+                return 6;
             default:
-                return"Invalid Move!";
+                return 999; //"Invalid Move!";
         }
+    }
 
-        if (board[0][column] != 0){
-            message = "Column full!";
-            //skip players turn
-        }else {
+    //Updates the playing board and handles invalid input/moves.
+    public static String placeToken(int move,int player,int[][] board) { //arguments: cleaned user input, player number, current board
+        int row = 5;
+        int column = move;
+        String message = "";
+
+        if(column == 999){
+            return "Invalid Move!";
+        }
+        else if (board[0][column] != 0){
+                message = "Column full!";
+        }
+        else {
             while (board[row][column] != 0) {
                 row--;
             }
@@ -73,7 +72,8 @@ public class Main {
         return message;
     }
 
-    public static boolean connect4(int[][]board, int player){
+    //Checks if player has won.
+    public static boolean connect4(int[][]board, int player){//argument: current board, player number
 
         //Horizontal Win
         for(int row = 0; row<6; row++){
@@ -123,10 +123,10 @@ public class Main {
         return false;
     }
 
-    public static void PC_bot(int[][]board, int counter){
+    //Computer algorithm. Detects if it or the player is close to winning and attacks/defends accordingly.
+    public static int PC_bot(int[][]board, int counter, int player_move){ //Arguments: current board, counter for bot to remember last move, players last move
 
-        //attacking/defending----------------------------------------->
-
+        //attacking/defending algo------------------------------------>
         for (int atkdef = 1; atkdef < 3; atkdef++) {
             //1 for defending, 2 for attacking
 
@@ -138,8 +138,7 @@ public class Main {
                             board[row][col + 1] == atkdef &&
                             board[row][col + 2] == atkdef) {
                         if (board[row][col + 3] == 0) {
-                            board[row][col + 3] = 2;
-                            return;
+                            return col + 3;
                         }
                     }
                     try {
@@ -148,24 +147,21 @@ public class Main {
                                 board[row][col + 1] == atkdef &&
                                 board[row][col + 2] == atkdef &&
                                 board[row][col + 3] == atkdef) {
-                            board[row][col] = 2;
-                            return;
+                            return col;
                         }
                         //second hole
                         else if (board[row][col] == atkdef &&
                                 board[row][col + 1] == 0 &&
                                 board[row][col + 2] == atkdef &&
                                 board[row][col + 3] == atkdef) {
-                            board[row][col + 1] = 2;
-                            return;
+                            return col + 1;
                         }
                         //third hole
                         else if (board[row][col] == atkdef &&
                                 board[row][col + 1] == atkdef &&
                                 board[row][col + 2] == 0 &&
                                 board[row][col + 3] == atkdef) {
-                            board[row][col + 2] = 2;
-                            return;
+                            return col + 2;
                         }
                     } catch (Exception ignored) {}
                 }
@@ -179,8 +175,7 @@ public class Main {
                             board[row + 1][col] == atkdef &&
                             board[row + 2][col] == atkdef) {
                         if (board[row + 3][col] == 0) {
-                            board[row + 3][col] = 2;
-                            return;
+                            return col;
                         }
                     }
                     try {
@@ -189,24 +184,21 @@ public class Main {
                                 board[row + 1][col] == atkdef &&
                                 board[row + 2][col] == atkdef &&
                                 board[row + 3][col] == atkdef) {
-                            board[row][col] = 2;
-                            return;
+                            return col;
                         }
                         //second hole
                         else if (board[row][col] == atkdef &&
                                 board[row + 1][col] == 0 &&
                                 board[row + 2][col] == atkdef &&
                                 board[row + 3][col] == atkdef) {
-                            board[row + 1][col] = 2;
-                            return;
+                            return col;
                         }
                         //third hole
                         else if (board[row][col] == atkdef &&
                                 board[row + 1][col] == atkdef &&
                                 board[row + 2][col] == 0 &&
                                 board[row + 3][col] == atkdef) {
-                            board[row + 2][col] = 2;
-                            return;
+                            return col;
                         }
                     } catch (Exception ignored) {}
                 }
@@ -220,8 +212,7 @@ public class Main {
                             board[row - 1][col + 1] == atkdef &&
                             board[row - 2][col + 2] == atkdef) {
                         if (board[row - 3][col + 3] == 0) {
-                            board[row - 3][col + 3] = 2;
-                            return;
+                            return col + 3;
                         }
                     }
                     try{
@@ -230,24 +221,21 @@ public class Main {
                                 board[row - 1][col + 1] == atkdef &&
                                 board[row - 2][col + 2] == atkdef &&
                                 board[row - 3][col + 3] == atkdef) {
-                            board[row][col] = 2;
-                            return;
+                            return col;
                         }
                         //second hole
                         else if (board[row][col] == atkdef &&
                                 board[row - 1][col + 1] == 0 &&
                                 board[row - 2][col + 2] == atkdef &&
                                 board[row - 3][col + 3] == atkdef) {
-                            board[row - 1][col + 1] = 2;
-                            return;
+                            return col + 1;
                         }
                         //third hole
                         else if (board[row][col] == atkdef &&
                                 board[row - 1][col + 1] == atkdef &&
                                 board[row - 2][col + 2] == 0 &&
                                 board[row - 3][col + 3] == atkdef) {
-                            board[row - 2][col + 2] = 2;
-                            return;
+                            return col + 2;
                         }
                     } catch (Exception ignored) {}
 
@@ -260,8 +248,7 @@ public class Main {
                             board[row + 1][col + 1] == atkdef &&
                             board[row + 2][col + 2] == atkdef) {
                         if (board[row + 3][col + 3] == 0) {
-                            board[row + 3][col + 3] = 2;
-                            return;
+                            return col + 3;
                         }
                     }
                     try{
@@ -270,44 +257,45 @@ public class Main {
                                 board[row + 1][col + 1] == atkdef &&
                                 board[row + 2][col + 2] == atkdef &&
                                 board[row + 3][col + 3] == atkdef) {
-                            board[row][col] = 2;
-                            return;
+                            return col;
                         }
                         //second hole
                         else if (board[row][col] == atkdef &&
                                 board[row + 1][col + 1] == 0 &&
                                 board[row + 2][col + 2] == atkdef &&
                                 board[row + 3][col + 3] == atkdef) {
-                            board[row + 1][col + 1] = 2;
-                            return;
+                            return col + 1;
                         }
                         //third hole
                         else if (board[row][col] == atkdef &&
                                 board[row + 1][col + 1] == atkdef &&
                                 board[row + 2][col + 2] == 0 &&
                                 board[row + 3][col + 3] == atkdef) {
-                            board[row + 2][col + 2] = 2;
-                            return;
+                            return col + 2;
                         }
                     } catch (Exception ignored) {}
                 }
             }
         }
+        //regular move algo-------------------------------------------->
+        int column = (counter%7);
 
-        //regular----------------------------------------------->
-        String PC_move = String.valueOf((counter%7)+1);
-        placeToken(PC_move, 2 , board);
-        return;
+        //every three turns place token above players last move :TrollFace:
+        if(counter > 2 && (counter+1)%3 == 0){
+            return player_move;
+        }
+        return column;
     }
 
     public static void main(String[] args) {
 
+        //Initial board
         int[][] board = {{0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0},};
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},
+                        {0, 0, 0, 0, 0, 0, 0},};
 
         Scanner scan = new Scanner(System.in);
 
@@ -321,36 +309,62 @@ public class Main {
         int turn = 0;
         int counter = 0;
 
-        while (!(play1 || play2)) {
+        //start game --------------------------->
+        while (!(play1 || play2) || (turn == 21)) {
+            String move1 = "";
+            String move2 = "";
 
             System.out.println("Turn #" + ++turn + ":");
 
             System.out.println("P1's turn:");
             String input1 = scan.nextLine();
-            System.out.println(placeToken(input1, 1, board));
+            move1 = placeToken(clean_input(input1), 1, board);
+
+            //Player gets to retry if invalid move occurs
+            while(!(move1.equals(""))){
+                System.out.println(move1 + " Please try again:");
+                input1 = scan.nextLine();
+                move1 = placeToken(clean_input(input1), 1, board);
+            }
             showBoard(board);
             play1 = connect4(board, 1);
 
             if (input.equals("2P")) {
                 System.out.println("P2's turn:");
                 String input2 = scan.nextLine();
-                System.out.println(placeToken(input2, 2, board));
+                move2 = (placeToken(clean_input(input2), 2, board));
+
+                //Player gets to retry if invalid move occurs
+                while(!(move2.equals(""))){
+                    System.out.println(move2 + " Please try again:");
+                    input2 = scan.nextLine();
+                    move2 = placeToken(clean_input(input2), 2, board);
+                }
                 showBoard(board);
                 play2 = connect4(board, 2);
+
+                //only for versing computer ------------------------------->
             }else{
                 System.out.println("PC's turn:");
-                PC_bot(board,counter);
+                int movePC = PC_bot(board,counter,clean_input(input1));
+                placeToken(movePC, 2 , board);
                 counter++;
                 showBoard(board);
                 play2 = connect4(board, 2);
             }
         }
 
-        if (play1) {
+        //game ends when player 1 or player 2 is true----------------------->
+        if (play1)
+        {
             System.out.println("Player 1 has won!");
-        } else {
+        }else if (play2)
+        {
             System.out.println("Player 2 has won!");
-            }
+        } else
+        {
+            System.out.println("CAT'S GAME!");
         }
     }
+}
 
